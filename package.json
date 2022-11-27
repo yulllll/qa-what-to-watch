@@ -1,0 +1,19 @@
+{
+  "name": "qa-what-to-watch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yulllll/qa-what-to-watch.git"
+  },
+  "author": "Yulia Koretskaya",
+  "license": "ISC",
+  "homepage": "https://github.com/yulllll/qa-what-to-watch#readme",
+  "dependencies": {
+    "cypress": "^11.2.0"
+  }
+}
