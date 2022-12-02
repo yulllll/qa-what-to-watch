@@ -1,14 +1,60 @@
-export default () => {
-  cy.intercept('PUT', joinUrl(Cypress.env('apiServer'), Path.POINTS, '/*'), (req) => {
+import joinUrl from 'url-join';
+
+export const filmId = Cypress.env('filmId');
+
+export const Path = {
+  FILMS: '/films',
+  FILM: `/films/${filmId}`,
+  SIMILAR: `/films/${filmId}/similar`,
+  PROMO: '/promo',
+  FAVOURITE: '/favorite',
+  COMMENTS: `/comments/${filmId}`,
+  LOGIN: '/login',
+}
+
+export const Alias = {
+  FILMS: 'films',
+  FILM: `films`,
+  SIMILAR: `similar`,
+  PROMO: 'promo',
+  FAVOURITE: 'favourite',
+  COMMENTS: `comments`,
+  LOGIN: 'login',
+
+}
+
+export const enableMocks = () => {
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILMS), { fixture: 'films' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILM), { fixture: 'film' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.SIMILAR), { fixture: 'similar' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.PROMO), { fixture: 'promo' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.COMMENTS), { fixture: 'comments' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.LOGIN), { fixture: 'login' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), { fixture: 'favorite' });
+  cy.intercept('POST', joinUrl(Cypress.env('apiServer'), Path.FAVOURITE, '/**'), (req) => {
+    if (req.url.endsWith('1')) {
       req.reply({
         statusCode: 200,
-        body: { ...req.body },
+        body: { ...req.body, isFavorite: true },
       });
-    }).as('saveFavourite');
-    cy.intercept('DELETE', joinUrl(Cypress.env('apiServer'), Path.POINTS, '/*'), (req) => {
+    } else if (req.url.endsWith('0')) {
       req.reply({
         statusCode: 200,
-        body: req.body,
+        body: { ...req.body, isFavorite: false },
       });
-    cy.intercept(joinUrl(Cypress.env('apiServer'), Path.POINTS), { fixture: 'points' });
+
+    } else {
+      req.reply({
+        statusCode: 500,
+      });
+    }
+  }).as(Alias.FAVOURITE);
+};
+
+export const setNoAuth = () => {
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.LOGIN), (req) => {
+    req.reply({
+      statusCode: 401,
+    });
+  })
 }

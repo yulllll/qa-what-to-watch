@@ -14,6 +14,7 @@
   "license": "ISC",
   "homepage": "https://github.com/yulllll/qa-what-to-watch#readme",
   "dependencies": {
-    "cypress": "^11.2.0"
+    "cypress": "^11.2.0",
+    "url-join": "^5.0.0"
   }
 }
