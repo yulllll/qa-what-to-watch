@@ -1,4 +1,5 @@
 import joinUrl from 'url-join';
+import film from '../fixtures/film.json';
 
 export const filmId = Cypress.env('filmId');
 
@@ -27,7 +28,7 @@ export const enableMocks = () => {
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILMS), { fixture: 'films' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILM), { fixture: 'film' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.SIMILAR), { fixture: 'similar' });
-  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.PROMO), { fixture: 'promo' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.PROMO), { fixture: 'film' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.COMMENTS), { fixture: 'comments' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.LOGIN), { fixture: 'login' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), { fixture: 'favorite' });
@@ -35,12 +36,12 @@ export const enableMocks = () => {
     if (req.url.endsWith('1')) {
       req.reply({
         statusCode: 200,
-        body: { ...req.body, isFavorite: true },
+        body: { ...film, isFavorite: true },
       });
     } else if (req.url.endsWith('0')) {
       req.reply({
         statusCode: 200,
-        body: { ...req.body, isFavorite: false },
+        body: { ...film, isFavorite: false },
       });
 
     } else {

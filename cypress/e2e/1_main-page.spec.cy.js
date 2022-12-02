@@ -1,10 +1,10 @@
 import joinUrl from 'url-join';
 import { enableMocks, Alias, Path } from "../utils/enableMocks";
-import promoData from '../fixtures/promo.json';
+import promoData from '../fixtures/film.json';
 import favoriteData from '../fixtures/favorite.json';
 import films from '../fixtures/films.json';
 
-describe('', () => {
+describe('1. Главная страница', () => {
     beforeEach(() => {
         enableMocks();
         cy.visit('/');

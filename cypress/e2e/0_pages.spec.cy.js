@@ -2,7 +2,7 @@ import {enableMocks, setNoAuth, filmId} from '../utils/enableMocks';
 import promoData from '../fixtures/promo.json';
 
 
-describe('1.1. Страницы приложения', () => {
+describe('0. Страницы приложения', () => {
   beforeEach(() => {
     enableMocks();
   });

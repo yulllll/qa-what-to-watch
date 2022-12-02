@@ -1,25 +1,25 @@
 [
     {
-        "name": "Moonrise Kingdom",
-        "posterImage": "https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg",
-        "previewImage": "https://10.react.pages.academy/static/film/preview/moonrise-kingdom.jpg",
-        "backgroundImage": "https://10.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg",
-        "backgroundColor": "#D8E3E5",
-        "description": "A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.",
-        "rating": 7.9,
-        "scoresCount": 291183,
-        "director": "Wes Anderson",
+        "name": "What We Do in the Shadows",
+        "posterImage": "https://10.react.pages.academy/static/film/poster/What-We-Do-in-the-Shadows.jpg",
+        "previewImage": "https://10.react.pages.academy/static/film/preview/what-we-do-in-the-shadows.jpg",
+        "backgroundImage": "https://10.react.pages.academy/static/film/background/What-We-Do-in-the-Shadows.jpg",
+        "backgroundColor": "#A39E81",
+        "description": "A look into the daily (or rather, nightly) lives of three vampires who've lived together for over 100 years, in Staten Island.",
+        "rating": 7.2,
+        "scoresCount": 6173,
+        "director": "Jemaine Clement",
         "starring": [
-            "Jared Gilman",
-            "Kara Hayward",
-            "Bruce Willis"
+            "Kayvan Novak",
+            "Matt Berry",
+            "Natasia Demetriou"
         ],
-        "runTime": 94,
-        "genre": "Adventure",
-        "released": 2012,
-        "id": 7,
+        "runTime": 30,
+        "genre": "Comedy",
+        "released": 2019,
+        "id": 6,
         "isFavorite": true,
-        "videoLink": "https://10.react.pages.academy/static/film/video/bubbles.mp4",
-        "previewVideoLink": "https://10.react.pages.academy/static/film/video/dog.mp4"
+        "videoLink": "https://10.react.pages.academy/static/film/video/matrix.mp4",
+        "previewVideoLink": "https://10.react.pages.academy/static/film/video/traffic.mp4"
     }
 ]
