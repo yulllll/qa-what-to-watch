@@ -1,5 +1,4 @@
-import {enableMocks, setNoAuth, filmId} from '../utils/enableMocks';
-import promoData from '../fixtures/promo.json';
+import {enableMocks, setNoAuth, filmId, Path} from '../utils/enableMocks';
 
 
 describe('0. Страницы приложения', () => {
@@ -20,46 +19,46 @@ describe('0. Страницы приложения', () => {
   });
 
   it('Sign In', () => {
-    cy.visit('/login');
+    cy.visit(Path.LOGIN);
     cy.get('.sign-in__btn').contains('Sign in').should('exist');
   });
 
   it('MyList', () => {
-    cy.visit('/mylist');
+    cy.visit(Path.MY_LIST);
     // cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
     cy.get('.user-block__link').should('have.text', 'Sign out');
     cy.get('.catalog').should('exist');
     
     setNoAuth();
-    cy.visit('/mylist');
+    cy.visit(Path.MY_LIST);
     cy.url()
-      .should('contain', '/login')
+      .should('contain', Path.LOGIN)
   });
 
   it('Film', () => {
-    cy.visit(`/films/${filmId}`);
+    cy.visit(Path.FILM);
     // cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
     cy.get('.user-block__link').should('have.text', 'Sign out');
     cy.get('.film-card__title').contains('Moonrise Kingdom').should('exist');
   
     setNoAuth();
-    cy.visit(`/films/${filmId}`);
+    cy.visit(Path.FILM);
     cy.get('.user-block__link').should('have.text', 'Sign in');
   });
 
   it('Add review', () => {
-    cy.visit(`/films/${filmId}/review`);
+    cy.visit(Path.REVIEW);
     // cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
     cy.get('.user-block__link').should('have.text', 'Sign out');
     
     setNoAuth();
-    cy.visit(`/films/${filmId}/review`);
+    cy.visit(Path.REVIEW);
     cy.url()
-      .should('contain', '/login');
+      .should('contain', Path.LOGIN);
   });
 
   it('Player', () => {
-    cy.visit(`/player/${filmId}`);
+    cy.visit(Path.PLAYER);
     cy.get('.player').should('exist');
   });
 

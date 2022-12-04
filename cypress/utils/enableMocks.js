@@ -11,6 +11,9 @@ export const Path = {
   FAVOURITE: '/favorite',
   COMMENTS: `/comments/${filmId}`,
   LOGIN: '/login',
+  MY_LIST: '/mylist',
+  REVIEW: `/films/${filmId}/review`,
+  PLAYER: `/player/${filmId}`,
 }
 
 export const Alias = {

@@ -16,52 +16,52 @@ describe('2. Страница фильма', () => {
         }
     });
 
-    // it('Постер abkmvf', () => {
-    //     cy.get('.film-card__poster img').should('have.attr', 'src', film.posterImage);
-    //     cy.get('.film-card__poster img').should('have.attr', 'alt');
-    //     cy.get('.film-card__title').should('have.text', film.name);
-    //     cy.get('.film-card__year').should('have.text', film.released);
-    // });
+    it('Постер фильма', () => {
+        cy.get('.film-card__poster img').should('have.attr', 'src', film.posterImage);
+        cy.get('.film-card__poster img').should('have.attr', 'alt');
+        cy.get('.film-card__title').should('have.text', film.name);
+        cy.get('.film-card__year').should('have.text', film.released);
+    });
 
-    // it('Воспроизведение фильма', () => {
-    //     cy.get('.btn--play').click();
-    //     cy.url()
-    //         .should('contain', `/player/${film.id}`);
-    // });
+    it('Воспроизведение фильма', () => {
+        cy.get('.btn--play').click();
+        cy.url()
+            .should('contain', `/player/${film.id}`);
+    });
 
-    // it('Избранное для фильма', () => {
-    //     // проверяем начальное состояние
-    //     cy.get('.film-card__count').should('have.text', favoriteData.length);
+    it('Избранное для фильма', () => {
+        // проверяем начальное состояние
+        cy.get('.film-card__count').should('have.text', favoriteData.length);
 
 
-    //     // далее учитывем сценарии расчета на клиенте и на сервере кол-ва избранных
+        // далее учитывем сценарии расчета на клиенте и на сервере кол-ва избранных
 
-    //     // первый клик (добавление или удаление)
-    //     cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), (req) => {
-    //         req.reply({
-    //             statusCode: 200,
-    //             body: [...favoriteData, { ...film, isFavorite: !film.isFavorite }].filter(f => f.isFavorite),
-    //         });
-    //     });
-    //     cy.get('.btn--list').click();
-    //     cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
-    //         expect(interception.response.body.isFavorite).to.be.equal(!film.isFavorite);
-    //     });
-    //     cy.get('.film-card__count').should('have.text', favoriteData.length + (film.isFavorite ? 0 : 1));
+        // первый клик (добавление или удаление)
+        cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), (req) => {
+            req.reply({
+                statusCode: 200,
+                body: [...favoriteData, { ...film, isFavorite: !film.isFavorite }].filter(f => f.isFavorite),
+            });
+        });
+        cy.get('.btn--list').click();
+        cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
+            expect(interception.response.body.isFavorite).to.be.equal(!film.isFavorite);
+        });
+        cy.get('.film-card__count').should('have.text', favoriteData.length + (film.isFavorite ? 0 : 1));
 
-    //     // повторный клик (возвращаем в начальное состояние)
-    //     cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), (req) => {
-    //         req.reply({
-    //             statusCode: 200,
-    //             body: [...favoriteData, { ...film, isFavorite: film.isFavorite }].filter(f => f.isFavorite),
-    //         });
-    //     });
-    //     cy.get('.btn--list').click();
-    //     cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
-    //         expect(interception.response.body.isFavorite).to.be.equal(film.isFavorite);
-    //     });
-    //     cy.get('.film-card__count').should('have.text', favoriteData.length + (film.isFavorite ? 1 : 0));
-    // });
+        // повторный клик (возвращаем в начальное состояние)
+        cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), (req) => {
+            req.reply({
+                statusCode: 200,
+                body: [...favoriteData, { ...film, isFavorite: film.isFavorite }].filter(f => f.isFavorite),
+            });
+        });
+        cy.get('.btn--list').click();
+        cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
+            expect(interception.response.body.isFavorite).to.be.equal(film.isFavorite);
+        });
+        cy.get('.film-card__count').should('have.text', favoriteData.length + (film.isFavorite ? 1 : 0));
+    });
 
     it('Общая информация', () => {
         cy.get('.film-nav__item:nth-child(1)').should('have.class', 'film-nav__item--active');
