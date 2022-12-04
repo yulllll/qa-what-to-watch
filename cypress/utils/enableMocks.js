@@ -56,6 +56,7 @@ export const enableMocks = () => {
 };
 
 export const setNoAuth = () => {
+  cy.clearLocalStorage();
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.LOGIN), (req) => {
     req.reply({
       statusCode: 401,
