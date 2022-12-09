@@ -28,6 +28,8 @@ export const Alias = {
 }
 
 export const enableMocks = () => {
+  cy.intercept('https://10.react.pages.academy/static/film/video/bubbles.mp4', { fixture: 'example.mp4,null' });
+  cy.intercept('https://10.react.pages.academy/static/film/video/dog.mp4', { fixture: 'example.mp4,null' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILMS), { fixture: 'films' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILM), { fixture: 'film' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.SIMILAR), { fixture: 'similar' });

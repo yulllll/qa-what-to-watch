@@ -2,8 +2,9 @@ const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'https://1841149-what-to-watch-10.vercel.app/',
+    baseUrl: 'https://localhost:3000',
     supportFile: false,
+    reporter: 'mochawesome',
   },
   env: {
     apiServer: 'https://10.react.pages.academy/wtw',

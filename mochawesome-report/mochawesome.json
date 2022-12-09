@@ -1,0 +1,162 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 3,
+    "pending": 0,
+    "failures": 1,
+    "start": "2022-12-09T21:13:37.479Z",
+    "end": "2022-12-09T21:14:06.256Z",
+    "duration": 28777,
+    "testsRegistered": 4,
+    "passPercent": 75,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "cc438772-51a7-4a69-a15e-c5ca990d6a15",
+      "title": "",
+      "fullFile": "cypress/e2e/6_player.cy.js",
+      "file": "cypress/e2e/6_player.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f2819408-1dc7-47f7-ab5e-966e85dc97be",
+          "title": "Просмотр фильмов",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Переход на страницу плеера",
+              "fullTitle": "Просмотр фильмов Переход на страницу плеера",
+              "timedOut": null,
+              "duration": 6606,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(_enableMocks.Path.FILM);\ncy.get('.btn--play').click();\ncy.url().should('contain', _enableMocks.Path.PLAYER);\ncy.get('.player__name').should('contain', _film.default.name);",
+              "err": {},
+              "uuid": "dac90ab9-e58d-47cb-bdfb-dd6f8d7ace1e",
+              "parentUUID": "f2819408-1dc7-47f7-ab5e-966e85dc97be",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Закрытие плеера",
+              "fullTitle": "Просмотр фильмов Закрытие плеера",
+              "timedOut": null,
+              "duration": 7792,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(_enableMocks.Path.FILM);\ncy.visit(_enableMocks.Path.PLAYER);\ncy.get('.player__exit').click();\ncy.url().should('contain', _enableMocks.Path.FILM);",
+              "err": {},
+              "uuid": "48456b08-3eb8-4d9c-8d7e-8592039a0d02",
+              "parentUUID": "f2819408-1dc7-47f7-ab5e-966e85dc97be",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Проигрывание",
+              "fullTitle": "Просмотр фильмов Проигрывание",
+              "timedOut": null,
+              "duration": 11745,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// автопроигрывание - условие для этого muted\ncy.get('video').should('have.prop', 'muted');\ncy.get('video').should('have.prop', 'paused', false); //  нажатие на кнопку меняет состояние плеера play/pause\ncy.get('.player__video').then(([$video]) => {\n  cy.get('.player__play').click().then(() => {\n    expect($video.paused).to.be.true;\n  });\n  cy.get('.player__play').click().then(() => {\n    expect($video.paused).to.be.false;\n  });\n}); // при проигрывании меняется положение progressbar\n// меняется время в формате '-HH:mm:ss' или '-mm:ss'\ncy.get('.player__video').then(([$video]) => {\n  cy.get('.player__play').click();\n  $video.pause();\n  const duration = Math.floor($video.duration - $video.currentTime);\n  const format = $video.duration > 3600 ? '-HH:mm:ss' : '-mm:ss';\n  const beginTime = (0, _dayjs.default)(0).utcOffset(0).second(duration); // play\n  cy.get('.player__time-value').should('contain', beginTime.format(format));\n  cy.get('progress').then(([$el]) => {\n    expect($el.value).to.be.equal($video.currentTime / $video.duration * 100);\n  });\n  cy.get('.player__play').click();\n  cy.wait(1000); // pause\n  cy.get('.player__play').click();\n  cy.get('.player__time-value').then($el => {\n    const endTime = (0, _dayjs.default)($el.text(), format, true);\n    const diff = beginTime.subtract(endTime).second();\n    expect(diff).to.be.equal(1);\n  });\n  cy.get('progress').then(([$el]) => {\n    expect($el.value).to.be.equal($video.currentTime / $video.duration * 100);\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: expected '<div.player__time-value>' to contain '-00:15'",
+                "estack": "AssertionError: Timed out retrying after 4000ms: expected '<div.player__time-value>' to contain '-00:15'\n    at Context.eval (webpack:///./cypress/e2e/6_player.cy.js:59:42)",
+                "diff": null
+              },
+              "uuid": "a65d6b0f-6cc9-4f8b-b86a-5329489185d4",
+              "parentUUID": "f2819408-1dc7-47f7-ab5e-966e85dc97be",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Фулскрин",
+              "fullTitle": "Просмотр фильмов Фулскрин",
+              "timedOut": null,
+              "duration": 1687,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.on('uncaught:exception', (err, runnable) => {\n  expect(err.message).to.match(/fullscreen/);\n  return false;\n});\ncy.get('.player__full-screen').click();",
+              "err": {},
+              "uuid": "b29e01ea-766d-4f5b-9334-f2e852872aa4",
+              "parentUUID": "f2819408-1dc7-47f7-ab5e-966e85dc97be",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "dac90ab9-e58d-47cb-bdfb-dd6f8d7ace1e",
+            "48456b08-3eb8-4d9c-8d7e-8592039a0d02",
+            "b29e01ea-766d-4f5b-9334-f2e852872aa4"
+          ],
+          "failures": [
+            "a65d6b0f-6cc9-4f8b-b86a-5329489185d4"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 27830,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import {enableMocks, setNoAuth, filmId, Path} from '../utils/enableMocks';
+import promo from '../fixtures/film.json';
 
 
 describe('0. Страницы приложения', () => {
@@ -8,8 +9,7 @@ describe('0. Страницы приложения', () => {
 
   it('Main', () => {
     cy.visit('/');
-    // todo раскомментироть (ошибка в работе студента)
-    // cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
+    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
     cy.get('.user-block__link').should('have.text', 'Sign out');
     cy.contains(promo.name).should('exist');
 
@@ -25,7 +25,7 @@ describe('0. Страницы приложения', () => {
 
   it('MyList', () => {
     cy.visit(Path.MY_LIST);
-    // cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
+    cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
     cy.get('.user-block__link').should('have.text', 'Sign out');
     cy.get('.catalog').should('exist');
     
@@ -37,7 +37,7 @@ describe('0. Страницы приложения', () => {
 
   it('Film', () => {
     cy.visit(Path.FILM);
-    // cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
+    cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
     cy.get('.user-block__link').should('have.text', 'Sign out');
     cy.get('.film-card__title').contains('Moonrise Kingdom').should('exist');
   
@@ -48,7 +48,7 @@ describe('0. Страницы приложения', () => {
 
   it('Add review', () => {
     cy.visit(Path.REVIEW);
-    // cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
+    cy.get('.user-block__avatar img').should('have.attr.src', 'https://10.react.pages.academy/static/avatar/3.jpg');
     cy.get('.user-block__link').should('have.text', 'Sign out');
     
     setNoAuth();
@@ -64,6 +64,6 @@ describe('0. Страницы приложения', () => {
 
   it('404', () => {
     cy.visit(`/404`);
-    cy.get('.logo').should('exist');
+    cy.get('.catalog').should('not.exist');
   });
 });

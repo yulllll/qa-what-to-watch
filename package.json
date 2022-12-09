@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress open"
+    "test": "cypress run --reporter mochawesome",
+    "cy:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -17,5 +18,9 @@
     "cypress": "^11.2.0",
     "dayjs": "^1.11.6",
     "url-join": "^5.0.0"
+  },
+  "devDependencies": {
+    "cypress-mochawesome-reporter": "^3.2.3",
+    "mochawesome": "^7.1.3"
   }
 }
