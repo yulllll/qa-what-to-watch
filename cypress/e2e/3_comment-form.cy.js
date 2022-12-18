@@ -37,7 +37,7 @@ describe('Форма отправки отзыва', () => {
 
     it('Отправка отзыва', () => {
         cy.intercept('POST', joinUrl(Cypress.env('apiServer'), Path.REVIEW), {
-            statusCode: '200', 
+            statusCode: 200, 
             body: [
                 {
                     "comment": VALID_TEXT,
@@ -55,18 +55,20 @@ describe('Форма отправки отзыва', () => {
         cy.get('.add-review__textarea').type(VALID_TEXT);
         cy.get('.add-review__btn').click();
         cy.get('@requestSuccess').then(interception => {
+            // todo debug
             expect(interception.response.statusCode).to.be.equal(200);
         });
         cy.url().should('contain', Path.FILM);
     });
 
     it('Обработка ошибки', () => {
-        cy.intercept('POST', joinUrl(Cypress.env('apiServer'), Path.REVIEW), { code: 500 }).as('requestFail');
+        cy.intercept('POST', joinUrl(Cypress.env('apiServer'), Path.REVIEW), { statusCode: 500 }).as('requestFail');
 
         cy.get('.rating__label:last-child').click();
         cy.get('.add-review__textarea').type(VALID_TEXT);
         cy.get('.add-review__btn').click();
         cy.get('@requestFail').then(interception => {
+            // todo debug
             expect(interception.response.statusCode).to.be.equal(500);
         });
         cy.url().should('contain', Path.REVIEW);

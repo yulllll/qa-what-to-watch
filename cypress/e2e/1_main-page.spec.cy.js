@@ -1,16 +1,15 @@
 import joinUrl from 'url-join';
 import { enableMocks, Alias, Path } from "../utils/enableMocks";
+import toggleFavouriteDecorator from '../utils/toggleFavouriteDecorator';
 import promoData from '../fixtures/film.json';
 import favoriteData from '../fixtures/favorite.json';
 import films from '../fixtures/films.json';
 
 describe('1. Главная страница', () => {
-    beforeEach(() => {
-        enableMocks();
-        cy.visit('/');
-    });
 
     it('Постер', () => {
+        enableMocks();
+        cy.visit('/');
         cy.get('.film-card__poster img').should('have.attr', 'src', promoData.posterImage);
         cy.get('.film-card__poster img').should('have.attr', 'alt');
         cy.get('.film-card__title').should('have.text', promoData.name);
@@ -18,47 +17,35 @@ describe('1. Главная страница', () => {
     });
 
     it('Воспроизведение промо', () => {
+        enableMocks();
+        cy.visit('/');
+        cy.contains(promoData.name); // хак на ожидание перерендера после загрузки фильма
         cy.get('.btn--play').click();
         cy.url()
          .should('contain', `/player/${promoData.id}`);
     });
 
     it('Избранное для промо', () => {
-        // проверяем начальное состояние
+        const toggleFavouriteResponse = toggleFavouriteDecorator(promoData, favoriteData);
+        enableMocks();
+
+        cy.visit('/');
         cy.get('.film-card__count').should('have.text', favoriteData.length);
 
-
-        // далее учитывем сценарии расчета на клиенте и на сервере кол-ва избранных
-
-        // первый клик (добавление или удаление)
-        cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), (req) => {
-            req.reply({
-                statusCode: 200,
-                body: [...favoriteData, {...promoData, isFavorite: !promoData.isFavorite}].filter(f => f.isFavorite),
-            });
-        });
+        toggleFavouriteResponse();
         cy.get('.btn--list').click();
-        cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
-            expect(interception.response.body.isFavorite).to.be.equal(!promoData.isFavorite);
-        });
-        cy.get('.film-card__count').should('have.text', favoriteData.length + (promoData.isFavorite ? 0 : 1));
+        cy.get('.film-card__count').should('have.text', favoriteData.length + (promoData.isFavorite ? -1 : 1));
 
-        // повторный клик (возвращаем в начальное состояние)
-        cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), (req) => {
-            req.reply({
-                statusCode: 200,
-                body: [...favoriteData, {...promoData, isFavorite: promoData.isFavorite}].filter(f => f.isFavorite),
-            });
-        });
+        toggleFavouriteResponse();
         cy.get('.btn--list').click();
-        cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
-            expect(interception.response.body.isFavorite).to.be.equal(promoData.isFavorite);
-        });
-        cy.get('.film-card__count').should('have.text', favoriteData.length + (promoData.isFavorite ? 1 : 0));
+        cy.get('.film-card__count').should('have.text', favoriteData.length);
     });
 
 
     it('Жанры', () => {
+        enableMocks();
+        cy.visit('/');
+
         cy.get('.catalog').as('catalog');
         cy.get('.catalog__genres-item').should('have.length.lessThan', 9 + 1);
 
@@ -106,6 +93,9 @@ describe('1. Главная страница', () => {
     });
 
     it('Карточки', () => {
+        enableMocks();
+        cy.visit('/');
+
         const film = films[0];
         cy.get('.catalog__films-card:first-child').as('card');
         cy.get('@card').find('.small-film-card__image img').should('have.attr', 'src', film.previewImage);

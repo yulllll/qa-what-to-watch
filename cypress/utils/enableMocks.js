@@ -48,7 +48,6 @@ export const enableMocks = () => {
         statusCode: 200,
         body: { ...film, isFavorite: false },
       });
-
     } else {
       req.reply({
         statusCode: 500,

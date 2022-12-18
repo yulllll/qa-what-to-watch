@@ -133,7 +133,7 @@
         "genre": "Comedy",
         "released": 2019,
         "id": 6,
-        "isFavorite": false,
+        "isFavorite": true,
         "videoLink": "https://10.react.pages.academy/static/film/video/matrix.mp4",
         "previewVideoLink": "https://10.react.pages.academy/static/film/video/traffic.mp4"
     },

@@ -17,7 +17,7 @@
     "genre": "Adventure",
     "released": 2012,
     "id": 7,
-    "isFavorite": true,
+    "isFavorite": false,
     "videoLink": "https://10.react.pages.academy/static/film/video/bubbles.mp4",
     "previewVideoLink": "https://10.react.pages.academy/static/film/video/dog.mp4"
 }
