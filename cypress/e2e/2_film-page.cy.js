@@ -44,22 +44,16 @@ describe('2. Страница фильма', () => {
             });
         });
         cy.get('.btn--list').click();
-        cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
-            expect(interception.response.body.isFavorite).to.be.equal(!film.isFavorite);
-        });
+        cy.wait(`@${Alias.FAVOURITE}`).its('response.body.isFavorite').should('eq', !film.isFavorite);
         cy.get('.film-card__count').should('have.text', favoriteData.length + (film.isFavorite ? 0 : 1));
 
         // повторный клик (возвращаем в начальное состояние)
-        cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), (req) => {
-            req.reply({
-                statusCode: 200,
-                body: [...favoriteData, { ...film, isFavorite: film.isFavorite }].filter(f => f.isFavorite),
-            });
+        cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), {
+            statusCode: 200,
+            body: [...favoriteData, { ...film, isFavorite: film.isFavorite }].filter(f => f.isFavorite),
         });
         cy.get('.btn--list').click();
-        cy.wait(`@${Alias.FAVOURITE}`).then((interception) => {
-            expect(interception.response.body.isFavorite).to.be.equal(film.isFavorite);
-        });
+        cy.wait(`@${Alias.FAVOURITE}`).its('response.body.isFavorite').should('eq', film.isFavorite);
         cy.get('.film-card__count').should('have.text', favoriteData.length + (film.isFavorite ? 1 : 0));
     });
 

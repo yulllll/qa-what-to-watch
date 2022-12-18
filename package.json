@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --reporter mochawesome",
+    "test": "cypress run --reporter mochawesome --browser chrome",
     "cy:open": "cypress open"
   },
   "repository": {

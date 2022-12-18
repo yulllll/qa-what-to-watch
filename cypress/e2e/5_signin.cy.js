@@ -63,9 +63,7 @@ describe('Страница Sign In', () => {
         cy.get('@password').type('123valid');
         cy.get('.sign-in__btn').click();
 
-        cy.get('@loginFail').then(interception => {
-            expect(interception.response.statusCode).to.be.equal(500);
-        });
+        cy.get('@loginFail').its('response.statusCode').should('eq', 500);
     });
 
     it('Для авторизованных', () => {

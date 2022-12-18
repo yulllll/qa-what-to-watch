@@ -62,9 +62,7 @@ describe('Форма отправки отзыва', () => {
         cy.get('.rating__label:last-child').click();
         cy.get('.add-review__textarea').type(VALID_TEXT);
         cy.get('.add-review__btn').click();
-        cy.get('@requestSuccess').then(interception => {
-            expect(interception.response.statusCode).to.be.equal(200);
-        });
+        cy.get('@requestSuccess').its('response.statusCode').should('eq', 200);
         cy.url().should('contain', Path.FILM);
     });
 
@@ -76,9 +74,7 @@ describe('Форма отправки отзыва', () => {
         cy.get('.rating__label:last-child').click();
         cy.get('.add-review__textarea').type(VALID_TEXT);
         cy.get('.add-review__btn').click();
-        cy.get('@requestFail').then(interception => {
-            expect(interception.response.statusCode).to.be.equal(500);
-        });
+        cy.get('@requestFail').its('response.statusCode').should('eq', 500);
         cy.url().should('contain', Path.REVIEW);
     });
 });
