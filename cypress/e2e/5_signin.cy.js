@@ -11,13 +11,11 @@ describe('Страница Sign In', () => {
         cy.get('.sign-in__input[type="password"]').as('password');
         cy.intercept(
             'POST',
-             joinUrl(Cypress.env('apiServer'), Path.LOGIN), 
-             req => {
-                req.reply({
-                    statusCode: 200,
-                    body: data,
-                });
-             }).as('loginSuccess');
+            joinUrl(Cypress.env('apiServer'), Path.LOGIN),
+            {
+                statusCode: 200,
+                body: data,
+            }).as('loginSuccess');
     });
 
     it('Валидация формы', () => {
@@ -33,12 +31,12 @@ describe('Страница Sign In', () => {
         cy.get('.sign-in__btn').click();
         cy.get('@loginSuccess').should('not.exist');
 
-        
+
         cy.get('@email').clear();
         cy.get('@password').type('invalid');
         cy.get('.sign-in__btn').click();
         cy.get('@loginSuccess').should('not.exist');
-        
+
         cy.get('@email').clear();
         cy.get('@password').type('123');
         cy.get('.sign-in__btn').click();
@@ -46,7 +44,7 @@ describe('Страница Sign In', () => {
     });
 
     it('Отправка формы', () => {
-             
+
         cy.get('@email').type('valid@email.com');
         cy.get('@password').type('123valid');
         cy.get('.sign-in__btn').click();
@@ -58,7 +56,7 @@ describe('Страница Sign In', () => {
     });
 
     it('Обработка ошибки', () => {
-        cy.intercept('POST', joinUrl(Cypress.env('apiServer'), Path.LOGIN), req => req.reply({ statusCode: 500 })).as('loginFail');
+        cy.intercept('POST', joinUrl(Cypress.env('apiServer'), Path.LOGIN), { statusCode: 500 }).as('loginFail');
         cy.visit(Path.LOGIN);
 
         cy.get('@email').type('valid@email.com');
