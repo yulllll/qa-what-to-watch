@@ -15,6 +15,7 @@ describe('Просмотр фильмов', () => {
 
     it('Переход на страницу плеера', () => {
         cy.visit(Path.FILM);
+        cy.contains(film.name)
         cy.get('.btn--play').click();
         cy.url().should('contain', Path.PLAYER);
         cy.get('.player__name').should('contain', film.name);
