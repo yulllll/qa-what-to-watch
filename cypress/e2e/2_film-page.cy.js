@@ -125,7 +125,14 @@ describe('2. Страница фильма', () => {
 
             cy.get('@card').trigger('mouseover');
             cy.wait(500);
-            cy.get('@card').find('video').should('have.attr', 'src', similar.previewVideoLink);
+            cy.get('@card').find('video').then(([$video]) => {
+                const $source = $video.querySelector('source');
+                if($source) {
+                    expect($source.getAttribute('src')).be.eq(similar.previewVideoLink);
+                } else {
+                    expect($video.getAttribute('src')).be.eq(similar.previewVideoLink);
+                }
+            });
             cy.get('@card').trigger('mouseleave');
             cy.wait(500);
 

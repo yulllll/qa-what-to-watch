@@ -20,7 +20,7 @@ describe('Страница Sign In', () => {
 
     it('Валидация формы', () => {
         cy.get('@email').type('invalid_email');
-        cy.get('.sign-in__btn').click();
+        cy.get('@email').type('{enter}');
         cy.get('@loginSuccess').should('not.exist');
 
         cy.get('@email').clear();
@@ -28,18 +28,18 @@ describe('Страница Sign In', () => {
         cy.get('@loginSuccess').should('not.exist');
 
         cy.get('@password').type(' ');
-        cy.get('.sign-in__btn').click();
+        cy.get('@password').type('{enter}');
         cy.get('@loginSuccess').should('not.exist');
 
 
         cy.get('@email').clear();
         cy.get('@password').type('invalid');
-        cy.get('.sign-in__btn').click();
+        cy.get('@password').type('{enter}');
         cy.get('@loginSuccess').should('not.exist');
 
         cy.get('@email').clear();
         cy.get('@password').type('123');
-        cy.get('.sign-in__btn').click();
+        cy.get('@password').type('{enter}');
         cy.get('@loginSuccess').should('not.exist');
     });
 
