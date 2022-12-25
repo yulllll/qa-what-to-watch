@@ -1,4 +1,5 @@
-const { defineConfig } = require('cypress')
+const { defineConfig } = require('cypress');
+import {writeFileSync} from 'fs';
 
 module.exports = defineConfig({
   e2e: {
@@ -6,6 +7,11 @@ module.exports = defineConfig({
     supportFile: false,
     reporter: 'mochawesome',
     chromeWebSecurity: false,
+    setupNodeEvents(on, config) {
+      on('after:run', (results) => {
+        writeFileSync('./result.txt', String(results.totalPassed));
+      });
+    }
   },
   env: {
     apiServer: 'https://10.react.pages.academy/wtw',

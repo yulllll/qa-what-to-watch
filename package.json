@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress run --reporter mochawesome --browser chrome",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "test:all": "./run_all.sh"
   },
   "repository": {
     "type": "git",
