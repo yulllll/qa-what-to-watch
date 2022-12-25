@@ -1,5 +1,5 @@
 import joinUrl from 'url-join';
-import { enableMocks, Alias, Path } from "../utils/enableMocks";
+import { enableMocks, filmId, Alias, Path } from "../utils/enableMocks";
 import toggleFavouriteDecorator from '../utils/toggleFavouriteDecorator';
 import promoData from '../fixtures/film.json';
 import favoriteData from '../fixtures/favorite.json';
@@ -26,7 +26,7 @@ describe('1. Главная страница', () => {
     });
 
     it('Избранное для промо', () => {
-        const toggleFavouriteResponse = toggleFavouriteDecorator(promoData, favoriteData);
+        const toggleFavouriteResponse = toggleFavouriteDecorator(Path.PROMO);
         enableMocks();
 
         cy.visit('/');
@@ -98,11 +98,26 @@ describe('1. Главная страница', () => {
 
         const film = films[0];
         cy.get('.catalog__films-card:first-child').as('card');
-        cy.get('@card').find('.small-film-card__image img').should('have.attr', 'src', film.previewImage);
+        cy.get('@card').then(([$el]) => {
+            const img = $el.querySelector('img');
+            if (img) {
+                expect(img.getAttribute('src')).be.eq(film.previewImage);
+            } else {
+                const video = $el.querySelector('video');
+                expect(video.getAttribute('poster')).be.eq(film.previewImage);
+            }
+        });
 
         cy.get('@card').trigger('mouseover');
         cy.wait(500);
-        cy.get('@card').find('video').should('have.attr', 'src', film.previewVideoLink);
+        cy.get('@card').find('video').then(([$video]) => {
+            const $source = $video.querySelector('source');
+            if ($source) {
+                expect($source.getAttribute('src')).be.eq(film.previewVideoLink);
+            } else {
+                expect($video.getAttribute('src')).be.eq(film.previewVideoLink);
+            }
+        });
         cy.get('@card').trigger('mouseleave');
         cy.wait(500);
 

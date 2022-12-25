@@ -32,10 +32,13 @@ export const enableMocks = () => {
   cy.intercept('https://10.react.pages.academy/static/film/video/dog.mp4', { fixture: 'example.mp4,null' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILMS), { fixture: 'films' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILM), { fixture: 'film' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FILM.replace(filmId, '*')), { fixture: 'film' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.SIMILAR), { fixture: 'similar' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.SIMILAR.replace(filmId, '*')), { fixture: 'similar' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.PROMO), { fixture: 'film' });
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.COMMENTS), { fixture: 'comments' });
-  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.LOGIN), { fixture: 'login' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.COMMENTS.replace(filmId, '*')), { fixture: 'comments' });
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.LOGIN), { fixture: 'login' }); 
   cy.intercept(joinUrl(Cypress.env('apiServer'), Path.FAVOURITE), { fixture: 'favorite' });
   cy.intercept('POST', joinUrl(Cypress.env('apiServer'), Path.FAVOURITE, '/**'), (req) => {
     if (req.url.endsWith('1')) {
@@ -63,4 +66,9 @@ export const setNoAuth = () => {
       statusCode: 401,
     });
   })
-}
+};
+
+
+export const setAuth = () => {
+  cy.intercept(joinUrl(Cypress.env('apiServer'), Path.LOGIN), { fixture: 'login' }); 
+};

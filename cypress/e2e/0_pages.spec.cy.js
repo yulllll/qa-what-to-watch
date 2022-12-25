@@ -1,23 +1,34 @@
-import {enableMocks, setNoAuth, filmId, Path} from '../utils/enableMocks';
+import { enableMocks, setNoAuth, Path } from '../utils/enableMocks';
 import promo from '../fixtures/film.json';
-
+import authByForm from '../utils/authByForm';
 
 describe('0. Страницы приложения', () => {
-
-  it('Main', () => {
+  it('Header Auth', () => {
     enableMocks();
+    setNoAuth();
     cy.visit('/');
-    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
+    cy.get('.user-block__link').should('have.text', 'Sign in');
+
+    authByForm();
+
+    cy.visit('/');
     cy.get('.user-block__link').should('have.text', 'Sign out');
-    cy.contains(promo.name).should('exist');
+    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
 
     setNoAuth();
     cy.visit('/');
     cy.get('.user-block__link').should('have.text', 'Sign in');
   });
 
+  it('Main', () => {
+    enableMocks();
+    cy.visit('/');
+    cy.contains(promo.name).should('exist');
+  });
+
   it('Sign In', () => {
     enableMocks();
+    setNoAuth();
     cy.visit(Path.LOGIN);
     cy.get('.sign-in__btn').contains('Sign in').should('exist');
   });
@@ -25,10 +36,8 @@ describe('0. Страницы приложения', () => {
   it('MyList', () => {
     enableMocks();
     cy.visit(Path.MY_LIST);
-    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
-    cy.get('.user-block__link').should('have.text', 'Sign out');
     cy.get('.catalog').should('exist');
-    
+
     setNoAuth();
     cy.visit(Path.MY_LIST);
     cy.url()
@@ -38,10 +47,8 @@ describe('0. Страницы приложения', () => {
   it('Film', () => {
     enableMocks();
     cy.visit(Path.FILM);
-    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
-    cy.get('.user-block__link').should('have.text', 'Sign out');
     cy.get('.film-card__title').contains('Moonrise Kingdom').should('exist');
-  
+
     setNoAuth();
     cy.visit(Path.FILM);
     cy.get('.user-block__link').should('have.text', 'Sign in');
@@ -50,9 +57,8 @@ describe('0. Страницы приложения', () => {
   it('Add review', () => {
     enableMocks();
     cy.visit(Path.REVIEW);
-    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
-    cy.get('.user-block__link').should('have.text', 'Sign out');
-    
+    cy.get('.add-review__form').should('exist');
+
     setNoAuth();
     cy.visit(Path.REVIEW);
     cy.url()

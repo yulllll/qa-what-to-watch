@@ -1,0 +1,19 @@
+import joinUrl from 'url-join';
+import { setAuth, Path } from '../utils/enableMocks';
+import login from '../fixtures/login.json';
+
+export default () => {
+    cy.intercept(
+        'POST',
+        joinUrl(Cypress.env('apiServer'), Path.LOGIN),
+        {
+            statusCode: 200,
+            body: login,
+        });
+    cy.visit(Path.LOGIN);
+    cy.get('.sign-in__input[type="email"]').type('valid@email.com');
+    cy.get('.sign-in__input[type="password"]').type('123valid');
+    cy.get('.sign-in__btn').click();
+
+    setAuth();
+};

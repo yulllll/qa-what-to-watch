@@ -46,27 +46,27 @@
         "previewVideoLink": "https://10.react.pages.academy/static/film/video/dog.mp4"
     },
     {
-        "name": "Moonrise Kingdom",
-        "posterImage": "https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg",
-        "previewImage": "https://10.react.pages.academy/static/film/preview/moonrise-kingdom.jpg",
-        "backgroundImage": "https://10.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg",
-        "backgroundColor": "#D8E3E5",
-        "description": "A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.",
-        "rating": 7.9,
-        "scoresCount": 291183,
-        "director": "Wes Anderson",
+        "name": "The Revenant",
+        "posterImage": "https://10.react.pages.academy/static/film/poster/Revenant.jpg",
+        "previewImage": "https://10.react.pages.academy/static/film/preview/revenant.jpg",
+        "backgroundImage": "https://10.react.pages.academy/static/film/background/Revenant.jpg",
+        "backgroundColor": "#92918B",
+        "description": "A frontiersman on a fur trading expedition in the 1820s fights for survival after being mauled by a bear and left for dead by members of his own hunting team.",
+        "rating": 4,
+        "scoresCount": 618498,
+        "director": "Alejandro G. Iñárritu",
         "starring": [
-            "Jared Gilman",
-            "Kara Hayward",
-            "Bruce Willis"
+            "Leonardo DiCaprio",
+            "Tom Hardy",
+            "Will Poulter"
         ],
-        "runTime": 94,
+        "runTime": 156,
         "genre": "Adventure",
-        "released": 2012,
-        "id": 7,
-        "isFavorite": true,
+        "released": 2015,
+        "id": 21,
+        "isFavorite": false,
         "videoLink": "https://10.react.pages.academy/static/film/video/bubbles.mp4",
-        "previewVideoLink": "https://10.react.pages.academy/static/film/video/dog.mp4"
+        "previewVideoLink": "https://10.react.pages.academy/static/film/video/traffic.mp4"
     },
     {
         "name": "Beach",
