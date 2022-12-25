@@ -9,7 +9,7 @@ module.exports = defineConfig({
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       on('after:run', (results) => {
-        writeFileSync('./result.txt', String(results.totalPassed));
+        writeFileSync('./result.txt', results.totalPassed + ' из '+results.totalTests + ' пройдены');
       });
     }
   },

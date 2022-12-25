@@ -10,9 +10,17 @@ while read student; do
         npm start &
         STUDENT_PROJECT_PID=$! # сохраняем pid для дальнейшей остановки
         kill -9 $STUDENT_PROJECT_PID
+
+        npm test
+        mkdir -p "results/${student}-what-to-watch-1/videos"
+        mkdir -p "results/${student}-what-to-watch-1/screenshots"
+        mv ./cypress/videos/* "./results/${student}-what-to-watch-1/videos"
+        mv ./cypress/screenshots/* "./results/${student}-what-to-watch-1/screenshots"
+        mv result.txt "./results/${student}-what-to-watch-1"
+        rm -r "./${student}"
+        echo "test ${student} success"
     else 
         exit 1
     fi
-    rm -r "./${student}"
     echo 'the end'
 done <students.csv
