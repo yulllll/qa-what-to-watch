@@ -1,5 +1,5 @@
 const { defineConfig } = require('cypress');
-import {writeFileSync} from 'fs';
+const { writeFileSync } = require('fs');
 
 module.exports = defineConfig({
   e2e: {
@@ -9,7 +9,8 @@ module.exports = defineConfig({
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       on('after:run', (results) => {
-        writeFileSync('./result.txt', results.totalPassed + ' из '+results.totalTests + ' пройдены');
+        writeFileSync('./result.txt', results.totalPassed + ' из ' + results.totalTests + ' пройдены');
+        writeFileSync('./results_all.txt', process.env.STUDENT + ' - ' + results.totalPassed + ' из ' + results.totalTests + '\n', { flag: 'a' });
       });
     }
   },
