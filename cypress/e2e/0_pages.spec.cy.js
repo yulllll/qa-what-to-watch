@@ -13,7 +13,7 @@ describe('0. Страницы приложения', () => {
 
     cy.visit('/');
     cy.get('.user-block__link').should('have.text', 'Sign out');
-    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://10.react.pages.academy/static/avatar/3.jpg');
+    cy.get('.user-block__avatar img').should('have.attr', 'src', 'https://13.design.pages.academy/static/avatar/3.jpg');
 
     setNoAuth();
     cy.visit('/');

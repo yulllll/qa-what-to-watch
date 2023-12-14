@@ -3,7 +3,7 @@ const { writeFileSync } = require('fs');
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:5173',
     supportFile: false,
     reporter: 'mochawesome',
     chromeWebSecurity: false,
@@ -15,7 +15,8 @@ module.exports = defineConfig({
     }
   },
   env: {
-    apiServer: 'https://10.react.pages.academy/wtw',
+    apiServer: 'https://13.design.pages.academy/wtw',
+    staticServer: 'https://13.design.pages.academy/static',
     filmId: 7,
   }
 })

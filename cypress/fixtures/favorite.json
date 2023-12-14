@@ -1,9 +1,9 @@
 [
     {
         "name": "What We Do in the Shadows",
-        "posterImage": "https://10.react.pages.academy/static/film/poster/What-We-Do-in-the-Shadows.jpg",
-        "previewImage": "https://10.react.pages.academy/static/film/preview/what-we-do-in-the-shadows.jpg",
-        "backgroundImage": "https://10.react.pages.academy/static/film/background/What-We-Do-in-the-Shadows.jpg",
+        "posterImage": "https://13.design.pages.academy/static/film/poster/What-We-Do-in-the-Shadows.jpg",
+        "previewImage": "https://13.design.pages.academy/static/film/preview/what-we-do-in-the-shadows.jpg",
+        "backgroundImage": "https://13.design.pages.academy/static/film/background/What-We-Do-in-the-Shadows.jpg",
         "backgroundColor": "#A39E81",
         "description": "A look into the daily (or rather, nightly) lives of three vampires who've lived together for over 100 years, in Staten Island.",
         "rating": 7.2,
@@ -19,7 +19,7 @@
         "released": 2019,
         "id": 6,
         "isFavorite": true,
-        "videoLink": "https://10.react.pages.academy/static/film/video/matrix.mp4",
-        "previewVideoLink": "https://10.react.pages.academy/static/film/video/traffic.mp4"
+        "videoLink": "https://13.design.pages.academy/static/film/video/matrix.mp4",
+        "previewVideoLink": "https://13.design.pages.academy/static/film/video/traffic.mp4"
     }
 ]
