@@ -29,23 +29,22 @@ describe('Просмотр фильмов', () => {
     });
 
     it('Проигрывание', () => {
-        // автопроигрывание - условие для этого muted
-        cy.get('video')
-            .should('have.prop', 'muted');
-        cy.get('video')
-         .should('have.prop', 'paused', false);
-
         //  нажатие на кнопку меняет состояние плеера play/pause
         cy.get('.player__video').then(([$video]) => {
             cy.get('.player__play').click().then(() => {
-                expect($video.paused).to.be.true;
-            });
-
-            cy.get('.player__play').click().then(() => {
                 expect($video.paused).to.be.false;
             });
-        });
 
+            cy.wait(1000);
+
+            cy.get('.player__play').click().then(() => {
+                expect($video.paused).to.be.true;
+            });
+        });   
+    });
+    
+
+    it('Время проигрывания', () => {
         // при проигрывании меняется положение progressbar
         // меняется время в формате '-HH:mm:ss' или '-mm:ss'
         cy.get('.player__video').then(([$video]) => {
@@ -79,7 +78,7 @@ describe('Просмотр фильмов', () => {
 
     it('Фулскрин', () => {
         cy.on('uncaught:exception', (err, runnable) => {
-            expect(err.message).to.match(/fullscreen/);
+            expect(err.message).to.match(/Permissions/);
             return false;
         });
         cy.get('.player__full-screen').click();

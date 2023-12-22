@@ -87,7 +87,7 @@ describe('2. Страница фильма', () => {
         cy.get('.film-nav__item:nth-child(3)').should('have.class', 'film-nav__item--active');
         comments.forEach(comment => {
             const date = dayjs(comment.date);
-            cy.get('.review__author').should('contain', comment.user.name);
+            cy.get('.review__author').should('contain', comment.user);
             cy.get('.review__text').should('contain', comment.comment);
             cy.get('.review__date').should('contain', date.format('MMMM D, YYYY'));
             // cy.get('.review__date').should('have.attr', 'datetime', date.format('YYYY-MM-DD'));

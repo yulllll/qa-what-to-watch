@@ -4,9 +4,6 @@
       "date": "2022-11-27T20:25:25.760Z",
       "id": 1,
       "rating": 8.9,
-      "user": {
-        "id": 4,
-        "name": "Kate Muir"
-      }
+      "user": "Kate Muir"
     }
   ]
